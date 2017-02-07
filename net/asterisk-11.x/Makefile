@@ -270,7 +270,8 @@ CONFIGURE_ARGS+= \
 	--disable-xmldoc
 
 CONFIGURE_VARS += \
-	ac_cv_path_ac_pt_CONFIG_LIBXML2=$(STAGING_DIR)/host/bin/xml2-config
+	ac_cv_path_ac_pt_CONFIG_LIBXML2=$(STAGING_DIR_HOSTPKG)/bin/xml2-config \
+	ac_cv_path_PG_CONFIG=$(STAGING_DIR_HOSTPKG)/bin/pg_config \
 
 AST_MENUSELECT_OPTS = \
 	--without-newt \
