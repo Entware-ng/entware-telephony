@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2016 OpenWrt.org
+# Copyright (C) 2017 OpenWrt.org
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=asterisk-g72x
-PKG_VERSION:=1.3
-PKG_RELEASE:=2
+PKG_VERSION:=1.4
+PKG_RELEASE:=1
 
 PKG_SOURCE:=asterisk-g72x-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_URL:=http://asterisk.hosting.lv/src/
-PKG_MD5SUM:=05825dfbe4959dc5c90b2f7b91e3d4e3
+PKG_MD5SUM:=4573a6949cf46dadaf1d0d6bc2ee6755
 
 PKG_BUILD_DIR=$(BUILD_DIR)/asterisk-g72x-$(PKG_VERSION)
 PKG_FIXUP:=autoreconf
@@ -46,12 +46,19 @@ $(call Package/asterisk-g72x/Default)
   VARIANT:=asterisk13
 endef
 
+define Package/asterisk14-codec-g729
+$(call Package/asterisk-g72x/Default)
+  DEPENDS+= asterisk14
+  VARIANT:=asterisk14
+endef
+
 define Package/description/Default
  Asterisk G.729 codec based on bcg729 implementation.
 endef
 
 Package/asterisk11-codec-g729/description = $(Package/description/Default)
 Package/asterisk13-codec-g729/description = $(Package/description/Default)
+Package/asterisk14-codec-g729/description = $(Package/description/Default)
 
 ifeq ($(BUILD_VARIANT),asterisk11)
   MAKE_ARGS:= \
@@ -85,6 +92,22 @@ ifeq ($(BUILD_VARIANT),asterisk13)
 	$(MAKE_ARGS)
 endif
 
+ifeq ($(BUILD_VARIANT),asterisk14)
+  MAKE_ARGS:= \
+	CC="$(TARGET_CC)" \
+	LD="$(TARGET_LD)" \
+	CFLAGS="$(TARGET_CFLAGS) -DASTERISK_VERSION_NUM=130000 -DLOW_MEMORY -D_XOPEN_SOURCE=600 $(TARGET_CPPFLAGS) -I$(STAGING_DIR)/opt/include/asterisk-14/include -DHAVE_CONFIG_H -I. -fPIC" \
+	LDFLAGS="$(TARGET_LDFLAGS)" \
+	DESTDIR="$(PKG_INSTALL_DIR)"
+
+  CONFIGURE_ARGS+=\
+	--with-asterisk-includes=$(STAGING_DIR)/opt/include/asterisk-14/include \
+	--with-asterisk140 \
+	--with-bcg729 \
+	--enable-shared \
+	$(MAKE_ARGS)
+endif
+
 define Package/Install/Default
 	$(INSTALL_DIR) $(1)/opt/lib/asterisk/modules
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/lib/asterisk/modules/codec_g729.so $(1)/opt/lib/asterisk/modules/
@@ -92,6 +115,8 @@ endef
 
 Package/asterisk11-codec-g729/install = $(Package/Install/Default)
 Package/asterisk13-codec-g729/install = $(Package/Install/Default)
+Package/asterisk14-codec-g729/install = $(Package/Install/Default)
 
 $(eval $(call BuildPackage,asterisk11-codec-g729))
-#$(eval $(call BuildPackage,asterisk13-codec-g729))
+$(eval $(call BuildPackage,asterisk13-codec-g729))
+$(eval $(call BuildPackage,asterisk14-codec-g729))
