@@ -52,28 +52,28 @@ CONFIGURE_VARS += \
 	ac_cv_path_DOXYGEN= \
 
 define Build/InstallDev
-	$(INSTALL_DIR) $(1)/usr/include
+	$(INSTALL_DIR) $(1)/opt/include
 	( cd $(PKG_INSTALL_DIR); $(CP) \
-		./usr/include/ortp \
-		$(1)/usr/include/ \
+		./opt/include/ortp \
+		$(1)/opt/include/ \
 	)
-	$(INSTALL_DIR) $(1)/usr/lib
+	$(INSTALL_DIR) $(1)/opt/lib
 	( cd $(PKG_INSTALL_DIR); $(CP) \
-		./usr/lib/libortp.{a,so*} \
-		$(1)/usr/lib/ \
+		./opt/lib/libortp.{a,so*} \
+		$(1)/opt/lib/ \
 	)
-	$(INSTALL_DIR) $(1)/usr/lib/pkgconfig
+	$(INSTALL_DIR) $(1)/opt/lib/pkgconfig
 	( cd $(PKG_INSTALL_DIR); $(CP) \
-		./usr/lib/pkgconfig/ortp.pc \
-		$(1)/usr/lib/pkgconfig/ \
+		./opt/lib/pkgconfig/ortp.pc \
+		$(1)/opt/lib/pkgconfig/ \
 	)
 endef
 
 define Package/libortp/install
-	$(INSTALL_DIR) $(1)/usr/lib
+	$(INSTALL_DIR) $(1)/opt/lib
 	( cd $(PKG_INSTALL_DIR); $(CP) \
-		./usr/lib/libortp.so.* \
-		$(1)/usr/lib/ \
+		./opt/lib/libortp.so.* \
+		$(1)/opt/lib/ \
 	)
 endef
 
