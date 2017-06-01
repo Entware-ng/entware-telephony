@@ -1,8 +1,8 @@
-commit 6db8bc07063386cdb2b20716d5dde66127399422
-Merge: 68d8da8 e71ca4a
-Author: Daniel Golle <dangowrt@users.noreply.github.com>
-Date:   Fri Mar 10 01:01:15 2017 +0100
+commit eb02edab5970e5622a9902f04fc543601374a159
+Merge: 5ab3806 51d732e
+Author: Jo-Philipp Wich <jo@mein.io>
+Date:   Thu May 18 10:07:07 2017 +0200
 
-    Merge pull request #136 from kochstefan/feature_fax_speech
+    Merge pull request #295 from dedeckeh/pr_nat46_map
     
-    Feature fax speech
+    nat46: improve 1:1 map share ratio support
