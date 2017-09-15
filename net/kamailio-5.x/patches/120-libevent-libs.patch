@@ -1,5 +1,5 @@
---- a/modules/cnxcc/Makefile
-+++ b/modules/cnxcc/Makefile
+--- a/src/modules/cnxcc/Makefile
++++ b/src/modules/cnxcc/Makefile
 @@ -45,7 +45,7 @@ else
  endif
  
@@ -9,8 +9,8 @@
  
  DEFS+=-DOPENSER_MOD_INTERFACE
  SERLIBPATH=../../lib
---- a/modules/janssonrpc-c/netstring.h
-+++ b/modules/janssonrpc-c/netstring.h
+--- a/src/modules/janssonrpcc/netstring.h
++++ b/src/modules/janssonrpcc/netstring.h
 @@ -24,6 +24,7 @@
  #define __NETSTRING_STREAM_H
  
